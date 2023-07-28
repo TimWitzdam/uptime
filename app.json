@@ -6,8 +6,11 @@
     },
     "name": "uptime",
     "slug": "uptime",
-    "plugins": [
-      "expo-router"
-    ]
+    "plugins": ["expo-router"],
+    "ios": {
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    }
   }
 }

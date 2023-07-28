@@ -1,12 +1,38 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
+import * as SecureStore from "expo-secure-store";
+import { Redirect } from "expo-router";
 
 export default function App() {
-  return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  const [loggedIn, setLoggedIn] = useState(null);
+
+  useEffect(() => {
+    async function checkIfLoggedIn() {
+      let result = await SecureStore.getItemAsync("auth_token");
+      return result;
+    }
+
+    checkIfLoggedIn().then((result) => {
+      if (!result) {
+        console.log("Not logged in");
+        setLoggedIn(false);
+      } else {
+        console.log("Logged in");
+        setLoggedIn(true);
+      }
+    });
+  }, []);
+
+  if (loggedIn === null) {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+  } else if (loggedIn) {
+    return <Redirect href="/dashboard" />;
+  } else {
+    return <Redirect href="/start-page" />;
+  }
 }

@@ -5,6 +5,9 @@
       "bundler": "metro"
     },
     "name": "uptime",
-    "slug": "uptime"
+    "slug": "uptime",
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

@@ -14,12 +14,12 @@ export default function App() {
       </View>
       <View className="flex items-center w-full gap-4">
         <TextInput
-          className="rounded-lg flex flex-row border border-[#ACABAE] w-full pl-3 py-2 font-medium text-white"
+          className="rounded-lg flex flex-row border border-[#ACABAE] w-full pl-3 py-2 font-medium text-white text-lg"
           placeholder="E-Mail"
           placeholderTextColor={"#ACABAE"}
         ></TextInput>
         <TextInput
-          className="rounded-lg flex flex-row border border-[#ACABAE] w-full pl-3 py-2 font-medium text-white"
+          className="rounded-lg flex flex-row border border-[#ACABAE] w-full pl-3 py-2 font-medium text-white text-lg"
           placeholder="Password"
           placeholderTextColor={"#ACABAE"}
         ></TextInput>

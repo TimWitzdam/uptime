@@ -28,6 +28,7 @@ export default function App() {
     return (
       <View>
         <Text>Loading...</Text>
+        <StatusBar style="auto" />
       </View>
     );
   } else if (loggedIn) {

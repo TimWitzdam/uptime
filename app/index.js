@@ -14,6 +14,8 @@ export default function App() {
     }
 
     checkIfLoggedIn().then((result) => {
+      setLoggedIn(true);
+      return;
       if (!result) {
         console.log("Not logged in");
         setLoggedIn(false);

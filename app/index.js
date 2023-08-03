@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import { Redirect } from "expo-router";
+import router from "expo-router";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(null);
@@ -14,14 +15,31 @@ export default function App() {
     }
 
     checkIfLoggedIn().then((result) => {
-      setLoggedIn(true);
-      return;
       if (!result) {
         console.log("Not logged in");
         setLoggedIn(false);
       } else {
-        console.log("Logged in");
-        setLoggedIn(true);
+        fetch("http://192.168.178.33:5000/check-auth-token", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ auth_token: result }),
+        }).then(async (res) => {
+          const data = await res.json();
+          if (data.status === "ok") {
+            setLoggedIn(true);
+          } else {
+            Toast.show("Issue logging in, please login again.", {
+              duration: Toast.durations.LONG,
+              position: Toast.positions.BOTTOM,
+              backgroundColor: "#FF0000",
+            });
+            await SecureStore.deleteItemAsync("auth_token");
+            setLoggedIn(false);
+            router.replace("/login");
+          }
+        });
       }
     });
   }, []);

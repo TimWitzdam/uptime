@@ -4,6 +4,7 @@ import { Text, View } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import { Redirect } from "expo-router";
 import router from "expo-router";
+import Toast from "react-native-root-toast";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(null);
@@ -36,7 +37,6 @@ export default function App() {
               backgroundColor: "#FF0000",
             });
             await SecureStore.deleteItemAsync("auth_token");
-            setLoggedIn(false);
             router.replace("/login");
           }
         });

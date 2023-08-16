@@ -114,7 +114,7 @@ export default function App() {
         setLoading(false);
         if (data.status === "ok") {
           await SecureStore.setItemAsync("auth_token", data.auth_token);
-          await SecureStore.setItemAsync("user_id", data.user_id.toString());
+          await SecureStore.setItemAsync("user_id", data.user_id);
           router.replace("/dashboard");
         } else {
           Toast.show(data.message, {

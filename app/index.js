@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import { Redirect } from "expo-router";
-import router from "expo-router";
+import { router } from "expo-router";
 import Toast from "react-native-root-toast";
 
 export default function App() {

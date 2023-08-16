@@ -278,7 +278,7 @@ export default function App() {
             <Home />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => router.replace("/dashboard/monitor-list")}
+            onPress={() => router.replace("/dashboard/monitors")}
           >
             <Server />
           </TouchableOpacity>

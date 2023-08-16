@@ -2,14 +2,14 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Text, TouchableOpacity, View, TextInput } from "react-native";
 import { router } from "expo-router";
-import User from "../../assets/user.js";
-import Notification from "../../assets/notification.js";
-import Arrow from "../../assets/arrow.js";
-import Home from "../../assets/home.js";
-import Server from "../../assets/server.js";
-import Add from "../../assets/add.js";
-import List from "../../assets/list.js";
-import Settings from "../../assets/settings.js";
+import User from "../../../assets/user.js";
+import Notification from "../../../assets/notification.js";
+import Arrow from "../../../assets/arrow.js";
+import Home from "../../../assets/home.js";
+import Server from "../../../assets/server.js";
+import Add from "../../../assets/add.js";
+import List from "../../../assets/list.js";
+import Settings from "../../../assets/settings.js";
 
 export default function App() {
   return (
@@ -33,9 +33,8 @@ export default function App() {
         </View>
         <View className="w-full mb-10">
           <Text className="font-semibold text-4xl text-white">
-            Everything is
+            Your monitors
           </Text>
-          <Text className="font-semibold text-4xl text-accent">up 🎉</Text>
         </View>
         <View className="w-full flex flex-row">
           <View className="bg-[#212836] rounded-xl p-4 w-full mr-4">

@@ -116,31 +116,6 @@ export default function App() {
         </View>
       </View>
       <StatusBar style="auto" />
-      <View>
-        <View className="w-full h-16 bg-[#212836] flex flex-row items-center justify-evenly">
-          <TouchableOpacity onPress={() => router.replace("/dashboard")}>
-            <Home />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => router.replace("/dashboard/monitors")}
-          >
-            <Server />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.replace("/dashboard/new")}>
-            <Add />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => router.replace("/dashboard/events-list")}
-          >
-            <List />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => router.replace("/dashboard/settings")}
-          >
-            <Settings />
-          </TouchableOpacity>
-        </View>
-      </View>
     </View>
   );
 }

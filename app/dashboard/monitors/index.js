@@ -114,7 +114,7 @@ export default function App() {
                 <View className="flex-row gap-1 mb-3">
                   <View className="w-5 h-5 bg-accent rounded-lg "></View>
                   <View>
-                    <Text className="text-white text-lg font-semibold leading-5">
+                    <Text className="text-white text-xl font-semibold leading-5">
                       {monitor.name}
                     </Text>
                     <Text className="text-text">{monitor.url}</Text>
@@ -122,24 +122,28 @@ export default function App() {
                 </View>
                 <View className="flex flex-row gap-3">
                   <View>
-                    <Text className="text-xs text-text">Ping</Text>
-                    <Text className="text-white">
+                    <Text className="text-text">Ping</Text>
+                    <Text className="text-white text-lg">
                       {monitor.response_time}ms
                     </Text>
                   </View>
                   <View>
-                    <Text className="text-xs text-text">Uptime</Text>
-                    <Text className="text-white">{monitor.uptime}%</Text>
+                    <Text className="text-text">Uptime</Text>
+                    <Text className="text-white text-lg">
+                      {monitor.uptime}%
+                    </Text>
                   </View>
                   <View>
-                    <Text className="text-xs text-text">Last outage</Text>
-                    <Text className="text-white">
+                    <Text className=" text-text">Last outage</Text>
+                    <Text className="text-white text-lg">
                       {monitor.last_outage ? monitor.last_outage : "N/A"}
                     </Text>
                   </View>
                   <View>
-                    <Text className="text-xs text-text">Status</Text>
-                    <Text className={`text-${monitor.status.toLowerCase()}`}>
+                    <Text className="text-text">Status</Text>
+                    <Text
+                      className={`text-${monitor.status.toLowerCase()} text-lg`}
+                    >
                       {monitor.status}
                     </Text>
                   </View>

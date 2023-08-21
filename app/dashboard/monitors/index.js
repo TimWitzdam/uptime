@@ -10,12 +10,6 @@ import {
 import { router } from "expo-router";
 import User from "../../../assets/user.js";
 import Notification from "../../../assets/notification.js";
-import Arrow from "../../../assets/arrow.js";
-import Home from "../../../assets/home.js";
-import Server from "../../../assets/server.js";
-import Add from "../../../assets/add.js";
-import List from "../../../assets/list.js";
-import Settings from "../../../assets/settings.js";
 import * as SecureStore from "expo-secure-store";
 
 export default function App() {
@@ -24,8 +18,6 @@ export default function App() {
   const [fetched, setFetched] = useState(false);
 
   useEffect(() => {
-    let isMounted = true; // To track if the component is mounted
-
     async function fetchData() {
       if (fetched) return;
       const response = await fetch(

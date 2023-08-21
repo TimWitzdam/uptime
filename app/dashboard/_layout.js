@@ -6,6 +6,7 @@ import Server from "../../assets/server.js";
 import Add from "../../assets/add.js";
 import List from "../../assets/list.js";
 import Settings from "../../assets/settings.js";
+import { StatusBar } from "expo-status-bar";
 
 export default function Layout() {
   return (
@@ -30,6 +31,7 @@ export default function Layout() {
           <Settings />
         </TouchableOpacity>
       </View>
+      <StatusBar style="light" />
     </View>
   );
 }

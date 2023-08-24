@@ -29,38 +29,40 @@ export default function App() {
   const [renameVisible, setRenameVisible] = useState(false);
   const [deleteVisible, setDeleteVisible] = useState(false);
 
-  useEffect(() => {
-    async function fetchData() {
-      if (fetched) return;
-      const response = await fetch(
-        `http://192.168.178.33:5000/user/${await SecureStore.getItemAsync(
-          "user_id"
-        )}/monitors/${id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Auth-Token": await SecureStore.getItemAsync("auth_token"),
-          },
-        }
-      );
-      if (response.status === 200) {
-        const data = await response.json();
-        if (data.status === "ok") {
-          setMonitorDetails(data.monitor_details);
-          setFetched(true);
-        } else {
-          Toast.show(
-            "Something went wrong. Please use the support page in the settings.",
-            {
-              duration: Toast.durations.LONG,
-              position: Toast.positions.BOTTOM,
-              backgroundColor: "#FF0000",
-            }
-          );
-        }
+  async function fetchData(days = 7, force = false) {
+    if (fetched && !force) return;
+    const response = await fetch(
+      `http://192.168.178.33:5000/user/${await SecureStore.getItemAsync(
+        "user_id"
+      )}/monitors/${id}?days=${days}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Auth-Token": await SecureStore.getItemAsync("auth_token"),
+        },
+      }
+    );
+    if (response.status === 200) {
+      const data = await response.json();
+      if (data.status === "ok") {
+        setMonitorDetails(data.monitor_details);
+        setFetched(true);
+        setCurrentTimeSelected(days);
+      } else {
+        Toast.show(
+          "Something went wrong. Please use the support page in the settings.",
+          {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.BOTTOM,
+            backgroundColor: "#FF0000",
+          }
+        );
       }
     }
+  }
+
+  useEffect(() => {
     fetchData();
     calculateYAxisOffset();
   });
@@ -68,8 +70,6 @@ export default function App() {
   function calculateYAxisOffset() {
     if (!monitorDetails.ping_graph_data) return null;
     if (yAxisOffset) return null;
-
-    console.log(monitorDetails.ping_graph_data);
 
     let lowestValue = Number.MAX_VALUE; // Initialize with a large value
     for (const obj of monitorDetails.ping_graph_data) {
@@ -157,7 +157,7 @@ export default function App() {
   }
   const { showActionSheetWithOptions } = useActionSheet();
 
-  const onPress = async () => {
+  const onPressMenu = async () => {
     const options = ["Delete", "Rename", "Cancel"];
     const destructiveButtonIndex = 0;
     const cancelButtonIndex = 2;
@@ -182,6 +182,41 @@ export default function App() {
 
       case destructiveButtonIndex:
         setDeleteVisible(true);
+        break;
+
+      case cancelButtonIndex:
+        // Cancel
+        break;
+    }
+  };
+
+  const onPressTimespan = async () => {
+    const options = ["1 day", "7 days", "30 days", "Cancel"];
+    const cancelButtonIndex = 3;
+
+    const selectedIndex = await new Promise((resolve) => {
+      showActionSheetWithOptions(
+        {
+          options,
+          cancelButtonIndex,
+        },
+        (index) => {
+          resolve(index);
+        }
+      );
+    });
+
+    switch (selectedIndex) {
+      case 0:
+        fetchData(1, true);
+        break;
+
+      case 1:
+        fetchData(7, true);
+        break;
+
+      case 2:
+        fetchData(30, true);
         break;
 
       case cancelButtonIndex:
@@ -242,7 +277,7 @@ export default function App() {
                 Go back
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={onPress}>
+            <TouchableOpacity onPress={onPressMenu}>
               <Text className="font-bold text-white text-2xl rotate-90">
                 ...
               </Text>
@@ -279,10 +314,16 @@ export default function App() {
           </View>
           <View className="w-full">
             <View className="items-end mb-4">
-              <View className="px-8 py-3 bg-[#212836] w-fit rounded-lg flex-row items-center">
-                <Text className="text-white mr-1">7 days</Text>
+              <TouchableOpacity
+                className="px-8 py-3 bg-[#212836] w-fit rounded-lg flex-row items-center"
+                onPress={onPressTimespan}
+              >
+                <Text className="text-white mr-1">
+                  {currentTimeSelected}{" "}
+                  {currentTimeSelected === 1 ? "day" : "days"}
+                </Text>
                 <ShortArrow />
-              </View>
+              </TouchableOpacity>
             </View>
             <View className="w-full bg-[#212836] px-4 pt-4 pb-2 rounded-lg">
               {yAxisOffset ? (

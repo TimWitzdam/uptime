@@ -165,14 +165,17 @@ export default function App() {
                 </TouchableOpacity>
               ))}
             </View>
-            <View className="w-full flex flex-row items-center mt-2">
+            <TouchableOpacity
+              className="w-full flex flex-row items-center mt-2"
+              onPress={() => router.replace("/dashboard/monitors")}
+            >
               <Text className="text-white font-semibold ml-auto mr-2">
                 Show all
               </Text>
               <View className="p-2 bg-white rounded-full w-fit">
                 <Arrow />
               </View>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
       </View>

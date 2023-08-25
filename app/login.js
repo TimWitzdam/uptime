@@ -1,7 +1,44 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { Text, TouchableOpacity, View, TextInput } from "react-native";
+import Toast from "react-native-root-toast";
+import { router } from "expo-router";
+import * as SecureStore from "expo-secure-store";
+
 export default function App() {
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  async function logInUser() {
+    const response = await fetch(`http://192.168.178.33:5000/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log(data);
+      if (data.status === "ok") {
+        await SecureStore.setItemAsync("auth_token", data.auth_token);
+        await SecureStore.setItemAsync("user_id", data.user_id);
+        router.replace("/dashboard");
+      } else {
+        Toast.show(
+          "Something went wrong. Please use the support page in the settings.",
+          {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.BOTTOM,
+            backgroundColor: "#FF0000",
+          }
+        );
+      }
+    }
+  }
   return (
     <View className="p-6 bg-background flex-1 items-center">
       <View className="w-full mb-10">
@@ -17,11 +54,13 @@ export default function App() {
           className="rounded-lg flex flex-row border border-[#ACABAE] w-full pl-3 py-2 font-medium text-white text-lg"
           placeholder="E-Mail"
           placeholderTextColor={"#ACABAE"}
+          onChangeText={(text) => setEmail(text)}
         ></TextInput>
         <TextInput
           className="rounded-lg flex flex-row border border-[#ACABAE] w-full pl-3 py-2 font-medium text-white text-lg"
           placeholder="Password"
           placeholderTextColor={"#ACABAE"}
+          onChangeText={(text) => setPassword(text)}
         ></TextInput>
       </View>
       <View className="w-full">
@@ -30,7 +69,7 @@ export default function App() {
       <View className="w-full">
         <TouchableOpacity
           className="bg-white rounded-lg px-2 py-3 w-[50%] mx-auto mt-6"
-          onPress={() => router.push("/register")}
+          onPress={() => logInUser()}
         >
           <Text className="font-semibold text-black text-center text-lg leading-tight">
             Sign in

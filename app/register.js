@@ -64,6 +64,7 @@ export default function App() {
   }
 
   function register() {
+    Keyboard.dismiss();
     if (
       formData.name.length < 1 ||
       formData.email.length < 1 ||
@@ -137,16 +138,16 @@ export default function App() {
   return (
     <View className="p-6 flex-1 items-center bg-background">
       <View className="w-full mb-10">
-        <Text className="font-semibold text-3xl text-white">
+        <Text className="font-semibold text-4xl text-white">
           Let's get you started.
         </Text>
-        <Text className="text-text opacity-80  max-w-[70%]">
+        <Text className="text-text opacity-80 text-lg leading-6 max-w-[70%]">
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr
         </Text>
       </View>
       <View className="flex items-center w-full gap-4">
         <TextInput
-          className="rounded-lg flex flex-row border border-[#ACABAE] w-full pl-3 py-2 font-medium text-white text-lg"
+          className="rounded-lg flex flex-row border border-[#ACABAE] w-full pl-3 py-4 font-medium text-white text-lg leading-5"
           placeholder="Name"
           placeholderTextColor={"#ACABAE"}
           onChangeText={(text) => setName(text)}
@@ -156,7 +157,7 @@ export default function App() {
           autoCapitalize="none"
         ></TextInput>
         <TextInput
-          className="rounded-lg flex flex-row border border-[#ACABAE] w-full pl-3 py-2 font-medium text-white text-lg"
+          className="rounded-lg flex flex-row border border-[#ACABAE] w-full pl-3 py-4 font-medium text-white text-lg leading-5"
           placeholder="E-Mail"
           placeholderTextColor={"#ACABAE"}
           onChangeText={(text) => setEmail(text)}
@@ -168,7 +169,7 @@ export default function App() {
           keyboardType="email-address"
         ></TextInput>
         <TextInput
-          className="rounded-lg flex flex-row border border-[#ACABAE] w-full pl-3 py-2 font-medium text-white text-lg"
+          className="rounded-lg flex flex-row border border-[#ACABAE] w-full pl-3 py-4 font-medium text-white text-lg leading-5"
           placeholder="Password"
           placeholderTextColor={"#ACABAE"}
           onChangeText={(text) => setPassword(text)}
@@ -204,7 +205,7 @@ export default function App() {
           </View>
         ) : null}
         <TextInput
-          className="rounded-lg flex flex-row border border-[#ACABAE] w-full pl-3 py-2 font-medium text-white text-lg"
+          className="rounded-lg flex flex-row border border-[#ACABAE] w-full pl-3 py-4 font-medium text-white text-lg leading-5"
           placeholder="Confirm password"
           placeholderTextColor={"#ACABAE"}
           onChangeText={(text) => setConfirmPassword(text)}
@@ -229,10 +230,12 @@ export default function App() {
           </Text>
         </TouchableOpacity>
         <View className="flex flex-row gap-1 mx-auto mt-2">
-          <Text className="opacity-60 text-white">
+          <Text className="opacity-60 text-white text-lg">
             Already have an account?
           </Text>
-          <Text className="text-white">Sign in</Text>
+          <TouchableOpacity onPress={() => router.replace("/login")}>
+            <Text className="text-white text-lg">Sign in</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <StatusBar style="auto" />

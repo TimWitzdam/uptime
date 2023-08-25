@@ -7,11 +7,10 @@ import {
   TextInput,
   ActivityIndicator,
 } from "react-native";
-import TickAccent from "../assets/tick-accent.js";
-import TickGrey from "../assets/tick-grey.js";
 import Toast from "react-native-root-toast";
 import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
+import FontAwesome from "@expo/vector-icons/FontAwesome5";
 
 export default function App() {
   const [formData, setFormData] = useState({
@@ -191,13 +190,29 @@ export default function App() {
               ></View>
             </View>
             <View className="flex flex-row items-center mt-2">
-              {formData.password.length >= 8 ? <TickAccent /> : <TickGrey />}
+              <FontAwesome
+                name="check"
+                size={15}
+                color={`${
+                  formData.password.length >= 8
+                    ? "#50FFD5"
+                    : "rgba(255, 255, 255, 0.6)"
+                }`}
+              />
               <Text className="opacity-60 text-white ml-1 text-xs">
                 Min. 8 characters
               </Text>
             </View>
             <View className="flex flex-row items-center mt-2">
-              {/\d/.test(formData.password) ? <TickAccent /> : <TickGrey />}
+              <FontAwesome
+                name="check"
+                size={15}
+                color={`${
+                  /\d/.test(formData.password)
+                    ? "#50FFD5"
+                    : "rgba(255, 255, 255, 0.6)"
+                }`}
+              />
               <Text className="opacity-60 text-white ml-1 text-xs">
                 At least one number
               </Text>

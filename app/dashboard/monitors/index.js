@@ -1,16 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  TextInput,
-  ScrollView,
-} from "react-native";
+import { Text, TouchableOpacity, View, ScrollView } from "react-native";
 import { router } from "expo-router";
-import User from "../../../assets/user.js";
-import Notification from "../../../assets/notification.js";
 import * as SecureStore from "expo-secure-store";
+import FontAwesome from "@expo/vector-icons/FontAwesome5";
 
 export default function App() {
   const [currentFilter, setCurrentFilter] = useState("all");
@@ -49,7 +42,7 @@ export default function App() {
         <View className="w-full mb-6 flex flex-row justify-between">
           <View className="flex flex-row items-center gap-2">
             <View className="bg-white rounded-xl w-10 h-10 flex items-center justify-center">
-              <User />
+              <FontAwesome name="user" size={24} color="black" />
             </View>
             <View>
               <Text className="font-semibold text-xl text-white">
@@ -59,7 +52,7 @@ export default function App() {
             </View>
           </View>
           <View className="bg-white rounded-xl w-10 h-10 flex items-center justify-center">
-            <Notification />
+            <FontAwesome name="bell" size={24} color="black" />
           </View>
         </View>
         <View className="w-full mb-4">

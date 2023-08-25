@@ -1,20 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  TextInput,
-  ScrollView,
-  Linking,
-} from "react-native";
+import React from "react";
+import { Text, TouchableOpacity, View, Linking } from "react-native";
 import { router } from "expo-router";
-import Support from "../../../assets/support.js";
-import Arrow from "../../../assets/arrow.js";
-import RotatedArrow from "../../../assets/rotated-arrow.js";
-import LogOut from "../../../assets/logout.js";
 import * as SecureStore from "expo-secure-store";
 import Toast from "react-native-root-toast";
+import FontAwesome from "@expo/vector-icons/FontAwesome5";
 
 export default function App() {
   async function logOutUser() {
@@ -54,7 +44,7 @@ export default function App() {
             className="mb-6 flex-row items-center"
             onPress={() => router.back()}
           >
-            <RotatedArrow width="30px" />
+            <FontAwesome name="arrow-left" size={24} color="white" />
             <Text className="text-white ml-2 font-medium text-lg">Go back</Text>
           </TouchableOpacity>
         </View>
@@ -67,24 +57,24 @@ export default function App() {
             onPress={() => Linking.openURL("mailto:tim@witzdam.com")}
           >
             <View className="flex-row items-center">
-              <Support />
+              <FontAwesome name="envelope" size={24} color="white" />
               <Text className="ml-2 text-white font-medium text-lg">
                 Support
               </Text>
             </View>
-            <Arrow fill="white" width="20" height="20" />
+            <FontAwesome name="arrow-right" size={20} color="white" />
           </TouchableOpacity>
           <TouchableOpacity
             className="flex-row justify-between items-center pb-2 border-b-2 border-[#212836]"
             onPress={() => logOutUser()}
           >
             <View className="flex-row items-center">
-              <LogOut />
+              <FontAwesome name="sign-out-alt" size={24} color="white" />
               <Text className="ml-2 text-white font-medium text-lg">
                 Log out
               </Text>
             </View>
-            <Arrow fill="white" width="20" height="20" />
+            <FontAwesome name="arrow-right" size={20} color="white" />
           </TouchableOpacity>
         </View>
       </View>

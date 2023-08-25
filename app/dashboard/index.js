@@ -2,10 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View, TextInput } from "react-native";
 import { router } from "expo-router";
-import User from "../../assets/user.js";
-import Notification from "../../assets/notification.js";
-import Arrow from "../../assets/arrow.js";
 import * as SecureStore from "expo-secure-store";
+import FontAwesome from "@expo/vector-icons/FontAwesome5";
 
 export default function App() {
   const [monitors, setMonitors] = useState([]);
@@ -66,17 +64,19 @@ export default function App() {
         <View className="w-full mb-6 flex flex-row justify-between">
           <View className="flex flex-row items-center gap-2">
             <View className="bg-white rounded-xl w-10 h-10 flex items-center justify-center">
-              <User />
+              <FontAwesome name="user" size={24} color="black" />
             </View>
             <View>
               <Text className="font-semibold text-xl text-white">
-                Tim Witzdam
+                {userData.name}
               </Text>
-              <Text className="text-text opacity-80">Member since 2023</Text>
+              <Text className="text-text opacity-80">
+                Member since {userData.creation_year}
+              </Text>
             </View>
           </View>
           <View className="bg-white rounded-xl w-10 h-10 flex items-center justify-center">
-            <Notification />
+            <FontAwesome name="bell" size={24} color="black" />
           </View>
         </View>
         <View className="w-full mb-10">
@@ -194,11 +194,11 @@ export default function App() {
               className="w-full flex flex-row items-center mt-2"
               onPress={() => router.replace("/dashboard/monitors")}
             >
-              <Text className="text-white font-semibold ml-auto mr-2">
+              <Text className="text-lg text-white font-semibold ml-auto mr-2">
                 Show all
               </Text>
-              <View className="p-2 bg-white rounded-full w-fit">
-                <Arrow />
+              <View className="w-8 h-8 bg-white rounded-full items-center justify-center">
+                <FontAwesome name="arrow-right" size={12} color="black" />
               </View>
             </TouchableOpacity>
           </View>

@@ -1,24 +1,20 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import {
   Text,
   TouchableOpacity,
   View,
-  TextInput,
   ScrollView,
   Dimensions,
 } from "react-native";
 import { router } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
 import * as SecureStore from "expo-secure-store";
-import Globe from "../../../assets/globe.js";
-import Cursor from "../../../assets/cursor.js";
 import ShortArrow from "../../../assets/short-arrow.js";
-import RotatedArrow from "../../../assets/rotated-arrow.js";
 import { LineChart } from "react-native-gifted-charts";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import Toast from "react-native-root-toast";
 import Dialog from "react-native-dialog";
+import FontAwesome from "@expo/vector-icons/FontAwesome5";
 
 export default function App() {
   const [currentTimeSelected, setCurrentTimeSelected] = useState(7);
@@ -272,12 +268,12 @@ export default function App() {
               className="mb-6 flex-row items-center"
               onPress={() => router.replace("/dashboard/monitors")}
             >
-              <RotatedArrow width="30px" />
+              <FontAwesome name="arrow-left" size={24} color="white" />
               <Text className="text-white ml-2 font-medium text-lg">
                 Go back
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={onPressMenu}>
+            <TouchableOpacity className="pb-4 pl-4" onPress={onPressMenu}>
               <Text className="font-bold text-white text-2xl rotate-90">
                 ...
               </Text>
@@ -292,13 +288,18 @@ export default function App() {
                   {monitorDetails.metadata.name}
                 </Text>
                 <View className="flex-row items-center">
-                  <Globe />
+                  <View className="w-5">
+                    <FontAwesome name="globe" size={15} color="white" />
+                  </View>
+
                   <Text className="text-text font-medium ml-1">
                     {monitorDetails.metadata.url}
                   </Text>
                 </View>
                 <View className="flex-row items-center">
-                  <Cursor />
+                  <View className="w-5">
+                    <FontAwesome name="mouse-pointer" size={15} color="white" />
+                  </View>
                   <Text className="text-text font-medium ml-1">
                     {monitorDetails.metadata.type === "https"
                       ? "HTTPs"

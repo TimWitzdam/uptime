@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
   Text,
@@ -9,16 +8,9 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { router } from "expo-router";
-import User from "../../assets/user.js";
-import Notification from "../../assets/notification.js";
-import Arrow from "../../assets/arrow.js";
-import Home from "../../assets/home.js";
-import Server from "../../assets/server.js";
-import Add from "../../assets/add.js";
-import List from "../../assets/list.js";
-import Settings from "../../assets/settings.js";
 import * as SecureStore from "expo-secure-store";
 import Toast from "react-native-root-toast";
+import FontAwesome from "@expo/vector-icons/FontAwesome5";
 
 export default function App() {
   const [monitorData, setMonitorData] = useState({
@@ -126,7 +118,7 @@ export default function App() {
         <View className="w-full mb-6 flex flex-row justify-between">
           <View className="flex flex-row items-center gap-2">
             <View className="bg-white rounded-xl w-10 h-10 flex items-center justify-center">
-              <User />
+              <FontAwesome name="user" size={24} color="black" />
             </View>
             <View>
               <Text className="font-semibold text-xl text-white">
@@ -136,7 +128,7 @@ export default function App() {
             </View>
           </View>
           <View className="bg-white rounded-xl w-10 h-10 flex items-center justify-center">
-            <Notification />
+            <FontAwesome name="bell" size={24} color="black" />
           </View>
         </View>
         <View className="w-full mb-6">

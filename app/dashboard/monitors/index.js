@@ -142,7 +142,13 @@ export default function App() {
                   <View>
                     <Text className="text-text">Status</Text>
                     <Text
-                      className={`text-${monitor.status.toLowerCase()} text-lg`}
+                      className={`text-lg ${
+                        monitor.status.toLowerCase() === "up"
+                          ? "text-green"
+                          : monitor.status.toLowerCase() === "down"
+                          ? "text-red"
+                          : "text-yellow"
+                      }`}
                     >
                       {monitor.status}
                     </Text>

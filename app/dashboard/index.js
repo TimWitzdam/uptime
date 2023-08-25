@@ -101,69 +101,94 @@ export default function App() {
             <Text className="text-text text-xl font-semibold mb-2">
               Overall last 7 days
             </Text>
-            <View className="flex flex-row items-center gap-2">
-              <Text className="text-white text-4xl font-semibold">
-                {userData.uptime}%
-              </Text>
-              <View
-                className={`w-8 h-8 rounded-full bg-${
-                  userData.uptime === 100 || userData.uptime >= 99
-                    ? "green"
-                    : userData.uptime >= 95
-                    ? "yellow"
-                    : "red"
-                }`}
-              ></View>
-            </View>
+            {fetched ? (
+              <View className="flex flex-row items-center gap-2">
+                <Text className="text-white text-4xl font-semibold">
+                  {userData.uptime}%
+                </Text>
+                <View
+                  className={`w-8 h-8 rounded-full ${
+                    userData.uptime === 100 || userData.uptime >= 99
+                      ? "bg-green"
+                      : userData.uptime >= 95
+                      ? "bg-yellow"
+                      : fetched
+                      ? "bg-red"
+                      : ""
+                  }`}
+                ></View>
+              </View>
+            ) : (
+              <View className="flex flex-row items-center gap-2">
+                <Text className="text-white text-4xl font-semibold">
+                  Loading...
+                </Text>
+              </View>
+            )}
             <Text className="text-text text-xl font-semibold mb-2">
               Your monitors
             </Text>
             <View>
-              {monitors.map((monitor) => (
-                <TouchableOpacity
-                  className="flex flex-row gap-1 mb-2"
-                  key={monitor.id}
-                  onPress={() =>
-                    router.replace(`/dashboard/monitors/${monitor.id}`)
-                  }
-                >
+              {fetched ? (
+                monitors.map((monitor) => (
+                  <TouchableOpacity
+                    className="flex flex-row gap-1 mb-2"
+                    key={monitor.id}
+                    onPress={() =>
+                      router.replace(`/dashboard/monitors/${monitor.id}`)
+                    }
+                  >
+                    <View className="w-5 h-5 bg-accent rounded-lg "></View>
+                    <View className="flex flex-row justify-between w-full flex-1">
+                      <View>
+                        <Text className="text-white text-2xl font-semibold leading-6">
+                          {monitor.name}
+                        </Text>
+                        <Text className="text-text">{monitor.url}</Text>
+                      </View>
+                      <View className="flex flex-row gap-3">
+                        <View>
+                          <Text className="text-text">Ping</Text>
+                          <Text className="text-lg text-white">
+                            {monitor.response_time}ms
+                          </Text>
+                        </View>
+                        <View>
+                          <Text className="text-text">Uptime</Text>
+                          <Text className="text-lg text-white">
+                            {monitor.uptime}%
+                          </Text>
+                        </View>
+                        <View>
+                          <Text className="text-text">Status</Text>
+                          <Text
+                            className={`text-lg ${
+                              monitor.status.toLowerCase() === "up"
+                                ? "text-green"
+                                : monitor.status.toLowerCase() === "down"
+                                ? "text-red"
+                                : "text-yellow"
+                            }`}
+                          >
+                            {monitor.status}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                ))
+              ) : (
+                <View className="flex flex-row gap-1 mb-2">
                   <View className="w-5 h-5 bg-accent rounded-lg "></View>
                   <View className="flex flex-row justify-between w-full flex-1">
                     <View>
                       <Text className="text-white text-lg font-semibold leading-5">
-                        {monitor.name}
+                        Loading...
                       </Text>
-                      <Text className="text-text">{monitor.url}</Text>
-                    </View>
-                    <View className="flex flex-row gap-3">
-                      <View>
-                        <Text className="text-xs text-text">Ping</Text>
-                        <Text className="text-white">
-                          {monitor.response_time}ms
-                        </Text>
-                      </View>
-                      <View>
-                        <Text className="text-xs text-text">Uptime</Text>
-                        <Text className="text-white">{monitor.uptime}%</Text>
-                      </View>
-                      <View>
-                        <Text className="text-xs text-text">Status</Text>
-                        <Text
-                          className={`text-${
-                            monitor.status.toLowerCase() === "up"
-                              ? "green"
-                              : monitor.status.toLowerCase() === "down"
-                              ? "red"
-                              : "yellow"
-                          }`}
-                        >
-                          {monitor.status}
-                        </Text>
-                      </View>
                     </View>
                   </View>
-                </TouchableOpacity>
-              ))}
+                </View>
+              )}
             </View>
             <TouchableOpacity
               className="w-full flex flex-row items-center mt-2"

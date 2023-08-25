@@ -8,6 +8,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome5";
 export default function App() {
   const [currentFilter, setCurrentFilter] = useState("all");
   const [monitors, setMonitors] = useState([]);
+  const [allMonitors, setAllMonitors] = useState([]);
   const [fetched, setFetched] = useState(false);
 
   useEffect(() => {
@@ -28,6 +29,7 @@ export default function App() {
       if (response.status === 200) {
         const data = await response.json();
         if (data.status === "ok") {
+          setAllMonitors(data.monitor_details);
           setMonitors(data.monitor_details);
           setFetched(true);
         }
@@ -35,6 +37,23 @@ export default function App() {
     }
     fetchData();
   });
+
+  function changeFilter(filter) {
+    setCurrentFilter(filter);
+    if (filter === "all") {
+      setMonitors(allMonitors);
+    }
+    if (filter === "up") {
+      setMonitors(
+        allMonitors.filter((monitor) => monitor.status.toLowerCase() === "up")
+      );
+    }
+    if (filter === "slow") {
+      setMonitors(
+        allMonitors.filter((monitor) => monitor.status.toLowerCase() === "slow")
+      );
+    }
+  }
 
   return (
     <View className=" bg-background flex-1 justify-between">
@@ -62,37 +81,46 @@ export default function App() {
         </View>
         <View className="w-full">
           <View className="mb-4">
-            <View className="flex flex-row items-center mb-2 ml-2">
-              <TouchableOpacity onPress={() => setCurrentFilter("all")}>
-                <Text className="text-white text-lg mr-4">All monitors</Text>
+            <View className="flex flex-row items-center mb-2">
+              <TouchableOpacity
+                onPress={() => changeFilter("all")}
+                className={`border-b-4 ${
+                  currentFilter === "all" ? "border-accent" : "border-[#212836]"
+                }`}
+              >
+                <Text className="text-white text-lg pr-4">All monitors</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => setCurrentFilter("up")}>
-                <Text className="text-white text-lg mr-4">Up</Text>
+              <TouchableOpacity
+                onPress={() => changeFilter("up")}
+                className={`border-b-4 ${
+                  currentFilter === "up" ? "border-accent" : "border-[#212836]"
+                }`}
+              >
+                <Text className="text-white text-lg px-4">Up</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => setCurrentFilter("slow")}>
-                <Text className="text-white text-lg mr-4">Slow</Text>
+              <TouchableOpacity
+                onPress={() => changeFilter("slow")}
+                className={`border-b-4 ${
+                  currentFilter === "slow"
+                    ? "border-accent"
+                    : "border-[#212836]"
+                }`}
+              >
+                <Text className="text-white text-lg px-4">Slow</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => setCurrentFilter("down")}>
-                <Text className="text-white text-lg">Down</Text>
+              <TouchableOpacity
+                onPress={() => changeFilter("down")}
+                className={`border-b-4 ${
+                  currentFilter === "down"
+                    ? "border-accent"
+                    : "border-[#212836]"
+                }`}
+              >
+                <Text className="text-white text-lg px-4">Down</Text>
               </TouchableOpacity>
-            </View>
-            <View className="h-[4px] w-full bg-[#212836] rounded-xl flex-row">
-              <View
-                className="h-full w-20 bg-accent rounded-xl ml-[5%]"
-                style={{ opacity: currentFilter === "all" ? 1 : 0 }}
-              ></View>
-              <View
-                className="h-full w-6 bg-accent rounded-xl ml-[7%]"
-                style={{ opacity: currentFilter === "up" ? 1 : 0 }}
-              ></View>
-              <View
-                className="h-full w-8 bg-accent rounded-xl ml-[5%]"
-                style={{ opacity: currentFilter === "slow" ? 1 : 0 }}
-              ></View>
-              <View
-                className="h-full w-10 bg-accent rounded-xl ml-[7%]"
-                style={{ opacity: currentFilter === "down" ? 1 : 0 }}
-              ></View>
+              <View className="w-full border-b-4 border-[#212836]">
+                <Text className="opacity-0 text-lg">asdasd</Text>
+              </View>
             </View>
           </View>
           <ScrollView className="h-[75%]">

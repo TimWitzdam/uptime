@@ -33,7 +33,7 @@ export default function App() {
       if (data.status === "ok") {
         SecureStore.deleteItemAsync("auth_token");
         SecureStore.deleteItemAsync("user_id");
-        router.replace("/");
+        router.push("/start-page");
       } else {
         Toast.show(
           "Something went wrong. Please use the support page in the settings.",

@@ -22,7 +22,6 @@ export default function App() {
     });
     if (response.status === 200) {
       const data = await response.json();
-      console.log(data);
       if (data.status === "ok") {
         await SecureStore.setItemAsync("auth_token", data.auth_token);
         await SecureStore.setItemAsync("user_id", data.user_id);

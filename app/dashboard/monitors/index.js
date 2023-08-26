@@ -135,7 +135,10 @@ export default function App() {
                 <View className="flex-row gap-1 mb-3">
                   <View className="w-5 h-5 bg-accent rounded-lg "></View>
                   <View>
-                    <Text className="text-white text-xl font-semibold leading-5">
+                    <Text
+                      className="text-white text-xl font-semibold leading-5 w-[71vw]"
+                      numberOfLines={1}
+                    >
                       {monitor.name}
                     </Text>
                     <Text className="text-text">{monitor.url}</Text>

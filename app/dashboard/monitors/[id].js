@@ -284,7 +284,10 @@ export default function App() {
             <View className="flex-row">
               <View className="w-10 h-10 bg-accent rounded-lg mr-2"></View>
               <View>
-                <Text className="font-semibold text-4xl text-white">
+                <Text
+                  className="font-semibold text-4xl text-white w-[70vw]"
+                  numberOfLines={2}
+                >
                   {monitorDetails.metadata.name}
                 </Text>
                 <View className="flex-row items-center">

@@ -5,6 +5,7 @@ import {
   View,
   ScrollView,
   Dimensions,
+  Image,
 } from "react-native";
 import { router } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
@@ -282,7 +283,19 @@ export default function App() {
 
           <View className="w-full mb-4">
             <View className="flex-row">
-              <View className="w-10 h-10 bg-accent rounded-lg mr-2"></View>
+              {!monitorDetails.favicon ||
+              monitorDetails.favicon.startsWith("error_") ? (
+                <View className="w-10 h-10 mr-2">
+                  <FontAwesome name="globe" size={40} color="white" />
+                </View>
+              ) : (
+                <Image
+                  className="w-10 h-10 rounded-xl mr-2"
+                  source={{
+                    uri: "data:image/png;base64," + monitorDetails.favicon,
+                  }}
+                />
+              )}
               <View>
                 <Text
                   className="font-semibold text-4xl text-white w-[70vw]"

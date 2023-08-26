@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View, ScrollView } from "react-native";
+import { Text, TouchableOpacity, View, ScrollView, Image } from "react-native";
 import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
@@ -133,7 +133,16 @@ export default function App() {
                 }
               >
                 <View className="flex-row gap-1 mb-3">
-                  <View className="w-5 h-5 bg-accent rounded-lg "></View>
+                  {!monitor.favicon || monitor.favicon.startsWith("error_") ? (
+                    <FontAwesome name="globe" size={20} color="white" />
+                  ) : (
+                    <Image
+                      className="w-5 h-5 rounded-xl"
+                      source={{
+                        uri: "data:image/png;base64," + monitor.favicon,
+                      }}
+                    />
+                  )}
                   <View>
                     <Text
                       className="text-white text-xl font-semibold leading-5 w-[71vw]"

@@ -152,11 +152,16 @@ export default function App() {
                       />
                     )}
                     <View className="flex flex-row justify-between w-full flex-1">
-                      <View>
-                        <Text className="text-white text-2xl font-semibold leading-6">
+                      <View className="w-32">
+                        <Text
+                          className="text-white text-2xl font-semibold leading-6"
+                          numberOfLines={1}
+                        >
                           {monitor.name}
                         </Text>
-                        <Text className="text-text">{monitor.url}</Text>
+                        <Text className="text-text" numberOfLines={1}>
+                          {monitor.url}
+                        </Text>
                       </View>
                       <View className="flex flex-row gap-3">
                         <View>

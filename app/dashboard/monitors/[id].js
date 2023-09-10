@@ -450,19 +450,27 @@ export default function App() {
                 Recent events
               </Text>
               <View className="grid grid-cols-1 grid-rows-1 gap-4">
-                <View className="bg-[#212836] rounded-lg p-4">
-                  <View className="flex-row items-center">
-                    <View className="w-8 h-8 bg-accent rounded-full mr-2"></View>
-                    <View>
-                      <View>
-                        <Text className="text-white text-lg font-medium">
-                          Went back up
-                        </Text>
-                        <Text className="text-text">5 days ago</Text>
+                {monitorDetails.alerts.length !== 0 ? (
+                  monitorDetails.alerts.map((alert) => (
+                    <View className="bg-[#212836] rounded-lg p-4">
+                      <View className="flex-row items-center">
+                        <View className="w-8 h-8 bg-accent rounded-full mr-2"></View>
+                        <View>
+                          <View>
+                            <Text className="text-white text-lg font-medium">
+                              {alert.message}
+                            </Text>
+                            <Text className="text-text">
+                              {alert.created_at}
+                            </Text>
+                          </View>
+                        </View>
                       </View>
                     </View>
-                  </View>
-                </View>
+                  ))
+                ) : (
+                  <Text className="text-text">No recent events 😃</Text>
+                )}
               </View>
             </View>
           </View>

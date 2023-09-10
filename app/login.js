@@ -32,6 +32,8 @@ export default function App() {
       if (data.status === "ok") {
         await SecureStore.setItemAsync("auth_token", data.auth_token);
         await SecureStore.setItemAsync("user_id", data.user_id);
+        await SecureStore.setItemAsync("user_name", data.name);
+        await SecureStore.setItemAsync("creation_year", data.creation_year);
         router.replace("/dashboard");
       } else {
         Toast.show(data.message, {

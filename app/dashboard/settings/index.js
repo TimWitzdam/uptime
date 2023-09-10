@@ -23,6 +23,8 @@ export default function App() {
       if (data.status === "ok") {
         SecureStore.deleteItemAsync("auth_token");
         SecureStore.deleteItemAsync("user_id");
+        SecureStore.deleteItemAsync("user_name");
+        SecureStore.deleteItemAsync("creation_year");
         router.push("/start-page");
       } else {
         Toast.show(

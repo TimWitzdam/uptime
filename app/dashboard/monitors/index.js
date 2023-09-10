@@ -10,6 +10,7 @@ export default function App() {
   const [monitors, setMonitors] = useState([]);
   const [allMonitors, setAllMonitors] = useState([]);
   const [fetched, setFetched] = useState(false);
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
     async function fetchData() {
@@ -32,6 +33,9 @@ export default function App() {
           setAllMonitors(data.monitor_details);
           setMonitors(data.monitor_details);
           setFetched(true);
+          const name = await SecureStore.getItemAsync("user_name");
+          const creation_year = await SecureStore.getItemAsync("creation_year");
+          setUserData({ name: name, creation_year: creation_year });
         }
       }
     }
@@ -65,9 +69,11 @@ export default function App() {
             </View>
             <View>
               <Text className="font-semibold text-xl text-white">
-                Tim Witzdam
+                {userData.name}
               </Text>
-              <Text className="text-text opacity-80">Member since 2023</Text>
+              <Text className="text-text opacity-80">
+                Member since {userData.creation_year}
+              </Text>
             </View>
           </View>
           <View className="bg-white rounded-xl w-10 h-10 flex items-center justify-center">

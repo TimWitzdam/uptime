@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   TouchableOpacity,
@@ -23,6 +23,16 @@ export default function App() {
     ssl_notifications: false,
   });
   const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    async function fetchUserData() {
+      const name = await SecureStore.getItemAsync("user_name");
+      const creation_year = await SecureStore.getItemAsync("creation_year");
+      setUserData({ name: name, creation_year: creation_year });
+    }
+    fetchUserData();
+  }, []);
 
   function setType(text) {
     setMonitorData((prevData) => ({ ...prevData, type: text }));
@@ -122,9 +132,11 @@ export default function App() {
             </View>
             <View>
               <Text className="font-semibold text-xl text-white">
-                Tim Witzdam
+                {userData.name}
               </Text>
-              <Text className="text-text opacity-80">Member since 2023</Text>
+              <Text className="text-text opacity-80">
+                Member since {userData.creation_year}
+              </Text>
             </View>
           </View>
           <View className="bg-white rounded-xl w-10 h-10 flex items-center justify-center">

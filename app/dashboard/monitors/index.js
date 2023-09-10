@@ -13,6 +13,11 @@ export default function App() {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
+    async function fetchUserData() {
+      const name = await SecureStore.getItemAsync("user_name");
+      const creation_year = await SecureStore.getItemAsync("creation_year");
+      setUserData({ name: name, creation_year: creation_year });
+    }
     async function fetchData() {
       if (fetched) return;
       const response = await fetch(
@@ -33,12 +38,10 @@ export default function App() {
           setAllMonitors(data.monitor_details);
           setMonitors(data.monitor_details);
           setFetched(true);
-          const name = await SecureStore.getItemAsync("user_name");
-          const creation_year = await SecureStore.getItemAsync("creation_year");
-          setUserData({ name: name, creation_year: creation_year });
         }
       }
     }
+    fetchUserData();
     fetchData();
   });
 
